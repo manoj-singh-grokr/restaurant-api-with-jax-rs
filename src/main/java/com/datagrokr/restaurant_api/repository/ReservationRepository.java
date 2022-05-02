@@ -61,8 +61,12 @@ public class ReservationRepository {
     public Reservation updateReservation(Reservation reservation){
         Reservation reservationToUpdate = entityManager.find(Reservation.class, reservation.getId());
         entityManager.getTransaction().begin();
-        reservationToUpdate.setNoOfPeople(reservation.getNoOfPeople());
-        reservationToUpdate.setTimeOfReservation(reservation.getTimeOfReservation());
+        if(reservation.getNoOfPeople() != 0){
+            reservationToUpdate.setNoOfPeople(reservation.getNoOfPeople());
+        }
+        if(reservation.getTimeOfReservation() != null{
+            reservationToUpdate.setTimeOfReservation(reservation.getTimeOfReservation());
+        }
         entityManager.persist(reservationToUpdate);
         entityManager.getTransaction().commit();
         return reservationToUpdate;
