@@ -4,6 +4,7 @@ import com.datagrokr.restaurant_api.entity.Reservation;import com.datagrokr.rest
 import jakarta.ws.rs.core.MediaType;
 import java.time.LocalDateTime;
 import jakarta.ws.rs.client.Entity;
+import jakarta.ws.rs.core.Application;
 import jakarta.ws.rs.core.Response;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.junit.Test;
@@ -21,7 +22,7 @@ public class MyResourceTest extends JerseyTest {
     }
     
     @Override
-    protected ResourceConfig configure() {
+    protected Application configure() {
         return new ResourceConfig(MyResource.class);
     }
     
@@ -30,12 +31,13 @@ public class MyResourceTest extends JerseyTest {
      */
     @Test
     public void testGetReservations() {
-        Reservation reservation = new Reservation("man", "1234567890", 2, LocalDateTime.now().plusDays(1));
+        Reservation reservation = new Reservation("man", "1234567890", 2, LocalDateTime.now().plusMinutes(1));
         service.addReservation(reservation);
         Response response = target("/reservations").request().get();
-        assertEquals("should return status 200", 200, response.getStatus());
-        System.out.println(response.getStatus());
-        System.out.println(response.readEntity(String.class));
+        System.out.println(response);
+        assertEquals("should return status 204", 200, response.getStatus());
+        System.out.println(response);
+        System.out.println();
     }
 
     /**
@@ -43,12 +45,11 @@ public class MyResourceTest extends JerseyTest {
      */
     @Test
     public void testGetReservation() {
-        Reservation reservation = new Reservation("man", "1234567890", 2, LocalDateTime.now().plusDays(1));
+        Reservation reservation = new Reservation("man", "1234567890", 2, LocalDateTime.now().plusHours(1));
         service.addReservation(reservation);
-        Response output = target("/reservations/"+reservation.getId()).request().get();
-        assertEquals("Should return status 200", 200, output.getStatus());
+        Response output = target("/reservations/"+reservation.getId()).request(MediaType.APPLICATION_JSON_TYPE).get();
+        assertEquals("Should return status 204", 200, output.getStatus());
         assertNotNull("Should return user object as json", output.getEntity());
-        System.out.println(output.getStatus());
         System.out.println(output.readEntity(String.class));
     }
 
@@ -64,6 +65,7 @@ public class MyResourceTest extends JerseyTest {
         reservation = new Reservation("man", "1234567890", 2, LocalDateTime.now().plusHours(1));
         output = target("/reservations/add").request().post(Entity.entity(reservation, MediaType.APPLICATION_JSON));
         System.out.println(output);
+        System.out.println();
         assertEquals("Should return status 200", 200, output.getStatus());
     }
 
@@ -78,7 +80,8 @@ public class MyResourceTest extends JerseyTest {
         updatedReservation.setTimeOfReservation(LocalDateTime.now().plusMinutes(5));
         updatedReservation.setNoOfPeople(4);
         Response output = target("/reservations/update/"+reservation.getId()).request().put(Entity.entity(updatedReservation, MediaType.APPLICATION_JSON));
-        System.out.println(output.toString());
+        System.out.println(output);
+        System.out.println();
         assertEquals("Should return status 200", 200, output.getStatus());
     }
 
@@ -89,7 +92,9 @@ public class MyResourceTest extends JerseyTest {
     public void testDeleteReservation() {
         Reservation reservation = new Reservation("man", "1234567890", 2, LocalDateTime.now().plusMinutes(1));
         service.addReservation(reservation);
-        Response output = target("/reservations/delete/1234567890").request().delete();
+        Response output = target("/reservations/delete/"+reservation.getMobileNo()).request().delete();
+        System.out.println(output);
+        System.out.println();
         assertEquals("Should return status 200", 200, output.getStatus());
     }
     
