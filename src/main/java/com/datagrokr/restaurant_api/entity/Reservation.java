@@ -27,6 +27,14 @@ public class Reservation implements Serializable {
 
     public Reservation() {
     }
+
+    public Reservation(Long id, String username, String mobileNo, int noOfPeople, LocalDateTime timeOfReservation) {
+        this.id = id;
+        this.username = username;
+        this.mobileNo = mobileNo;
+        this.noOfPeople = noOfPeople;
+        this.timeOfReservation = timeOfReservation;
+    }
     
     public Reservation(String username, String mobileNo, int noOfPeople, LocalDateTime timeOfReservation) {
         this.username = username;

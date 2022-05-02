@@ -51,4 +51,10 @@ public class MyResource {
         return bookingService.removeReservation(reservation.getMobileNo());
     }
     
+    @Path("/delete/{mobileNo}")
+    @DELETE
+    public Response deleteReservationByMobileNo(@PathParam("mobileNo") String no){
+        return bookingService.removeReservation(no);
+    }
+    
 }

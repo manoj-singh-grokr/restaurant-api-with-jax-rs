@@ -64,7 +64,7 @@ public class ReservationRepository {
         if(reservation.getNoOfPeople() != 0){
             reservationToUpdate.setNoOfPeople(reservation.getNoOfPeople());
         }
-        if(reservation.getTimeOfReservation() != null{
+        if(reservation.getTimeOfReservation() != null){
             reservationToUpdate.setTimeOfReservation(reservation.getTimeOfReservation());
         }
         entityManager.persist(reservationToUpdate);
