@@ -47,7 +47,7 @@ public class BookingService {
             return Response.serverError().entity("Oops! All the 2 people tables are already booked").build();
         } else if(reservation.getNoOfPeople() == 4 && reservationRepo.countFours().equals("5")){
             return Response.serverError().entity("Oops! All the 4 people tables are already booked").build();
-        } else if(reservation.getNoOfPeople() != 2 && reservation.getNoOfPeople() != 4){
+        } else if(reservation.getNoOfPeople != 0 && reservation.getNoOfPeople() != 2 && reservation.getNoOfPeople() != 4){
             return Response.serverError().entity("You can book the table for 2 people or 4 people only").build();
         } else if(!reservation.getTimeOfReservation().toLocalDate().isEqual(LocalDate.now()) || reservation.getTimeOfReservation().toLocalTime().isBefore(LocalTime.now())){
             return Response.serverError().entity("Booking is allowed only for the current day!").build();
