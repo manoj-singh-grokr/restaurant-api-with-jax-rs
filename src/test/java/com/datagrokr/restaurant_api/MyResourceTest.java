@@ -35,6 +35,7 @@ public class MyResourceTest extends JerseyTest {
         service.addReservation(reservation);
         Response response = target("/reservations").request().get();
         assertEquals("should return status 204", 200, response.getStatus());
+        assertNotNull(response.getEntity());
     }
 
     /**
@@ -72,7 +73,6 @@ public class MyResourceTest extends JerseyTest {
     public void testUpdateReservation() {
         Reservation reservation = new Reservation("man", "1234567890", 2, LocalDateTime.now().plusMinutes(1));
         service.addReservation(reservation);
-        Reservation test = service.getReservation(reservation.getId());
         Reservation updatedReservation = new Reservation();
         updatedReservation.setTimeOfReservation(LocalDateTime.now().plusMinutes(5));
         updatedReservation.setNoOfPeople(4);
