@@ -34,10 +34,7 @@ public class MyResourceTest extends JerseyTest {
         Reservation reservation = new Reservation("man", "1234567890", 2, LocalDateTime.now().plusMinutes(1));
         service.addReservation(reservation);
         Response response = target("/reservations").request().get();
-        System.out.println(response);
         assertEquals("should return status 204", 200, response.getStatus());
-        System.out.println(response);
-        System.out.println();
     }
 
     /**
@@ -48,9 +45,8 @@ public class MyResourceTest extends JerseyTest {
         Reservation reservation = new Reservation("man", "1234567890", 2, LocalDateTime.now().plusHours(1));
         service.addReservation(reservation);
         Response output = target("/reservations/"+reservation.getId()).request(MediaType.APPLICATION_JSON_TYPE).get();
-        assertEquals("Should return status 204", 200, output.getStatus());
+        assertEquals("Should return status 200", 200, output.getStatus());
         assertNotNull("Should return user object as json", output.getEntity());
-        System.out.println(output.readEntity(String.class));
     }
 
     /**
@@ -76,6 +72,7 @@ public class MyResourceTest extends JerseyTest {
     public void testUpdateReservation() {
         Reservation reservation = new Reservation("man", "1234567890", 2, LocalDateTime.now().plusMinutes(1));
         service.addReservation(reservation);
+        Reservation test = service.getReservation(reservation.getId());
         Reservation updatedReservation = new Reservation();
         updatedReservation.setTimeOfReservation(LocalDateTime.now().plusMinutes(5));
         updatedReservation.setNoOfPeople(4);
@@ -93,9 +90,9 @@ public class MyResourceTest extends JerseyTest {
         Reservation reservation = new Reservation("man", "1234567890", 2, LocalDateTime.now().plusMinutes(1));
         service.addReservation(reservation);
         Response output = target("/reservations/delete/"+reservation.getMobileNo()).request().delete();
-        System.out.println(output);
-        System.out.println();
         assertEquals("Should return status 200", 200, output.getStatus());
+        output = target("/reservations/"+reservation.getId()).request(MediaType.APPLICATION_JSON_TYPE).get();
+        assertEquals(204, output.getStatus());
     }
     
 }

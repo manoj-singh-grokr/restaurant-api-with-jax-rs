@@ -51,8 +51,7 @@ public class ReservationRepositoryTest {
         instance.addReservation(new Reservation("man", "1234567890", 2, LocalDateTime.of(2022, 04, 29, 14, 44, 48, 640000)));
         instance.addReservation(new Reservation("aHAHA", "1234567845", 2, LocalDateTime.of(2022, 04, 29, 15, 30, 48, 640000)));
         System.out.println("findAll");
-        String total = instance.count();
-        assertEquals(total, "2");
+        assertNotNull(instance.findAll());
     }
     
     @Test
