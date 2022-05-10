@@ -6,6 +6,7 @@ import Typography from "@mui/material/Typography";
 import { Link } from "react-router-dom";
 import { IconButton, Menu, MenuItem } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
+import CheckingForm from "./CheckingForm";
 
 function ElevationScroll(props) {
   const { children } = props;
@@ -24,6 +25,11 @@ const NavBar = () => {
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
+
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <ElevationScroll>
@@ -53,7 +59,7 @@ const NavBar = () => {
                 onClick={handleOpenNavMenu}
                 color="inherit"
               >
-                <MenuIcon />
+                <MenuIcon fontSize="large" />
               </IconButton>
               <Menu
                 id="menu-appbar"
@@ -81,11 +87,13 @@ const NavBar = () => {
                   </Typography>
                 </MenuItem>
                 <MenuItem onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">
-                    <Link to="/reservations" className="side-link">
-                      Reservations
-                    </Link>
-                  </Typography>
+                  <Link
+                    to="#"
+                    onClick={handleOpen}
+                    className="side-link"
+                  >
+                    Reservations
+                  </Link>
                 </MenuItem>
               </Menu>
             </Box>
@@ -93,13 +101,14 @@ const NavBar = () => {
               <Link to="/book" className="side-link">
                 Book
               </Link>
-              <Link to="/reservations" className="side-link">
+              <Link to="#" className="side-link" onClick={handleOpen}>
                 Reservations
               </Link>
             </Box>
           </Toolbar>
         </AppBar>
       </ElevationScroll>
+      <CheckingForm open={open} handleClose={handleClose} />
     </Box>
   );
 };

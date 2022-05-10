@@ -1,15 +1,9 @@
 import React, { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import { styled } from "@mui/material";
+import { FormControl, InputAdornment, MenuItem } from "@mui/material";
 
 import PhoneIcon from "@mui/icons-material/Phone";
 import EmojiPeopleIcon from "@mui/icons-material/EmojiPeople";
-
-import {
-  FormControl,
-  InputAdornment,
-  MenuItem,
-} from "@mui/material";
 
 import * as Yup from "yup";
 
@@ -33,10 +27,6 @@ const initialValues = {
   timeOfReservation: "",
 };
 
-const Item = styled(Field)(() => ({
-  margin: "1rem 0",
-}));
-
 const ReservationForm = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
@@ -51,7 +41,7 @@ const ReservationForm = () => {
         },
       });
       if (result.status === 200) {
-        navigate("/reservations");
+        navigate("/reservations", { state: { userInfo: values } });
       }
     } catch (err) {
       setError(err.response.data);
@@ -65,16 +55,15 @@ const ReservationForm = () => {
     <Formik
       initialValues={initialValues}
       validationSchema={validationSchema}
-      validateOnChange={false}
-      validateOnBlur={false}
       onSubmit={(values, { setSubmitting }) => {
+        console.log(values);
         handleSubmit(values);
         setSubmitting(false);
       }}
     >
       {({ isSubmitting }) => (
         <Form className="form">
-          <Item
+          <Field
             as={TextField}
             type="text"
             name="username"
@@ -84,6 +73,7 @@ const ReservationForm = () => {
             sx={{
               label: { color: "#fff" },
               width: 300,
+              margin: "1rem 0",
             }}
             InputProps={{
               startAdornment: (
@@ -94,14 +84,14 @@ const ReservationForm = () => {
             }}
           />
           <ErrorMessage name="username" component="div" className="error" />
-          <Item
+          <Field
             as={TextField}
             type="text"
             name="mobileNo"
             label="Mobile No"
             variant="outlined"
             size="small"
-            sx={{ label: { color: "#fff" }, width: 300 }}
+            sx={{ label: { color: "#fff" }, width: 300, margin: "1rem 0" }}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
@@ -111,8 +101,8 @@ const ReservationForm = () => {
             }}
           />
           <ErrorMessage name="mobileNo" component="div" className="error" />
-          <FormControl fullWidth>
-            <Item
+          <FormControl>
+            <Field
               as={TextField}
               name="noOfPeople"
               label="No of People"
@@ -126,21 +116,21 @@ const ReservationForm = () => {
                   </InputAdornment>
                 ),
               }}
-              sx={{ label: { color: "#fff" }, width: 300 }}
+              sx={{ label: { color: "#fff" }, width: 300, margin: "1rem 0" }}
             >
               <MenuItem value={2}>2</MenuItem>
               <MenuItem value={4}>4</MenuItem>
-            </Item>
+            </Field>
           </FormControl>
           <ErrorMessage name="noOfPeople" component="div" className="error" />
-          <Item
+          <Field
             as={TextField}
             type="datetime-local"
             name="timeOfReservation"
             label="Time of Reservation"
             variant="outlined"
             size="small"
-            sx={{ label: { color: "#fff" }, width: 300 }}
+            sx={{ label: { color: "#fff" }, width: 300, margin: "1rem 0" }}
             InputLabelProps={{
               shrink: true,
             }}

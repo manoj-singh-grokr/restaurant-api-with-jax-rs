@@ -1,33 +1,22 @@
 import React, { useEffect, useState } from "react";
 import ReservationTable from "../components/ReservationTable";
+import { useLocation } from "react-router-dom";
 import axios from "axios";
 import { Container } from "@mui/material";
-import CheckingForm from "../components/CheckingForm";
-import { useNavigate } from "react-router-dom";
 
 const ReservationsPage = () => {
   const [reservations, setReservations] = useState([]);
-  const [userInfo, setUserInfo] = useState("");
-  const [error, setError] = useState("");
-  const navigate = useNavigate();
-
+  const { state } = useLocation();
+  const userInfo = state ? state.userInfo : "";
+  console.log(userInfo);
   useEffect(() => {
     const getReservations = async (userInfo) => {
       const result = await axios.get("/restaurant_api/api/reservations");
       const data = await result.data;
-      console.log(userInfo);
-
+      console.log(data);
       let userReservations = data.filter(
         (item) => item.username === userInfo.username
       );
-
-      if (userReservations.length === 0) {
-        setUserInfo("");
-        setError("User not found!");
-        setTimeout(() => {
-          setError("");
-        }, 4000);
-      }
 
       if (userInfo.timeOfReservation) {
         userReservations = userReservations.filter(
@@ -45,24 +34,13 @@ const ReservationsPage = () => {
     }
 
     console.log("I was called");
-  }, [userInfo, navigate]);
+  }, [userInfo]);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const data = {
-      username: e.target.username.value,
-      timeOfReservation: e.target.timeOfReservation.value,
-    };
-    setUserInfo(data);
-  };
-
-  return userInfo ? (
+  return (
     <Container maxWidth="md">
       <h2 className="heading">Reservations</h2>
       <ReservationTable rows={reservations} setReservations={setReservations} />
     </Container>
-  ) : (
-    <CheckingForm handleSubmit={handleSubmit} error={error} />
   );
 };
 

@@ -9,7 +9,7 @@ body {
 * {
   margin: 0;
   padding: 0;
-  font-family: 'Lato', sans-serif;
+  font-family: "Lato", sans-serif;
 }
 
 code {
@@ -21,7 +21,7 @@ input {
   color-scheme: dark;
 }
 
-.heading{
+.heading {
   text-align: center;
   color: white;
   margin-top: 2rem;
@@ -32,7 +32,6 @@ input {
   display: flex;
   align-content: space-around;
   flex-direction: column;
-  
 }
 
 .logo-link {
@@ -60,7 +59,7 @@ input {
 .centered {
   position: absolute;
   color: aliceblue;
-  filter:  brightness(100%);
+  filter: brightness(100%);
   text-decoration: underline;
   text-decoration-thickness: 6%;
   top: 50%;
@@ -68,29 +67,29 @@ input {
   transform: translate(-50%, -50%);
 }
 
-.main-image{
+.main-image {
   color: whitesmoke;
   align-items: center;
   margin-top: 2rem;
   height: 500;
-  background-image: linear-gradient(rgba(0, 0, 0, 0.5),
-    rgba(0, 0, 0, 0.5)), url("https://cdn.pixabay.com/photo/2018/07/14/15/27/cafe-3537801_960_720.jpg");
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url("https://cdn.pixabay.com/photo/2018/07/14/15/27/cafe-3537801_960_720.jpg");
   background-repeat: "no-repeat";
   background-size: "cover";
   background-position: "center";
 }
 
-.book-button{
+.book-button {
   position: absolute;
   text-decoration: none;
   color: aliceblue;
-  top: 70%;
+  top: 90%;
   left: 50%;
   transform: translate(-50%, -50%);
   border: 2px solid aliceblue;
 }
 
-.book-button:hover{
+.book-button:hover {
   background-color: white;
   color: black;
 }
@@ -104,74 +103,11 @@ footer {
   height: 50px;
 }
 
-.error{
+.error {
   color: red;
   text-align: center;
 }
 
-#noOfPeople{
+#noOfPeople {
   text-align: center;
-}
-
-@media only screen and (max-device-width: 768px) {
-.heading {
-    text-align: center;
-    color: white;
-    font-size: 1.3rem;
-    margin-top: 2rem;
-    margin-bottom: 2rem;
-  }
-  .centered {
-      position: absolute;
-      color: aliceblue;
-      font-size: 1.5rem;
-      filter: brightness(100%);
-      text-decoration: underline;
-      text-decoration-thickness: 6%;
-      top: 40%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-    }
-
-      .book-button {
-        position: absolute;
-        text-decoration: none;
-        color: aliceblue;
-        top: 60%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        border: 2px solid aliceblue;
-      }
-}
-
-@media all and (min-device-width: 820px) and (min-device-height: 1180px) and (orientation:portrait) {
-.heading {
-    text-align: center;
-    color: white;
-    font-size: 1.3rem;
-    margin-top: 2rem;
-    margin-bottom: 2rem;
-  }
-
-  .centered {
-    position: absolute;
-    color: aliceblue;
-    font-size: 1.5rem;
-    filter: brightness(100%);
-    text-decoration: underline;
-    text-decoration-thickness: 6%;
-    top: 30%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
-
-  .book-button {
-    position: absolute;
-    text-decoration: none;
-    color: aliceblue;
-    top: 45%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    border: 2px solid aliceblue;
-  }
 }
