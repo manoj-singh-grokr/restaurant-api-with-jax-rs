@@ -1,0 +1,171 @@
+body {
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  background-color: #212529;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: 'Lato', sans-serif;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+input {
+  color-scheme: dark;
+}
+
+.heading{
+  text-align: center;
+  color: white;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.form {
+  text-align: center;
+  background-image: url("https://cdn.pixabay.com/photo/2016/11/21/16/02/outdoor-dining-1846137_960_720.jpg");
+}
+
+.logo-link {
+  font-size: 1.5rem;
+  font-weight: 50;
+  margin: 0 5px;
+  text-decoration: none;
+  color: aliceblue;
+}
+
+.side-link {
+  font-size: 1.2rem;
+  font-weight: 50;
+  margin: 0 10px;
+  text-decoration: none;
+  color: aliceblue;
+}
+
+.card-content {
+  display: flex;
+  align-content: flex-end;
+  justify-content: space-between;
+}
+
+.centered {
+  position: absolute;
+  color: aliceblue;
+  filter:  brightness(100%);
+  text-decoration: underline;
+  text-decoration-thickness: 6%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.main-image{
+  color: whitesmoke;
+  align-items: center;
+  margin-top: 2rem;
+  height: 500;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5),
+    rgba(0, 0, 0, 0.5)), url("https://cdn.pixabay.com/photo/2018/07/14/15/27/cafe-3537801_960_720.jpg");
+  background-repeat: "no-repeat";
+  background-size: "cover";
+  background-position: "center";
+}
+
+.book-button{
+  position: absolute;
+  text-decoration: none;
+  color: aliceblue;
+  top: 70%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 2px solid aliceblue;
+}
+
+.book-button:hover{
+  background-color: white;
+  color: black;
+}
+
+footer {
+  color: aliceblue;
+  text-align: center;
+  margin-top: 3rem;
+  bottom: 0%;
+  width: 100%;
+  height: 50px;
+}
+
+.error{
+  color: red;
+  text-align: center;
+}
+
+@media only screen and (max-device-width: 768px) {
+.heading {
+    text-align: center;
+    color: white;
+    font-size: 1.3rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+  }
+  .centered {
+      position: absolute;
+      color: aliceblue;
+      font-size: 1.5rem;
+      filter: brightness(100%);
+      text-decoration: underline;
+      text-decoration-thickness: 6%;
+      top: 40%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+      .book-button {
+        position: absolute;
+        text-decoration: none;
+        color: aliceblue;
+        top: 60%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        border: 2px solid aliceblue;
+      }
+}
+
+@media all and (min-device-width: 820px) and (min-device-height: 1180px) and (orientation:portrait) {
+.heading {
+    text-align: center;
+    color: white;
+    font-size: 1.3rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .centered {
+    position: absolute;
+    color: aliceblue;
+    font-size: 1.5rem;
+    filter: brightness(100%);
+    text-decoration: underline;
+    text-decoration-thickness: 6%;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .book-button {
+    position: absolute;
+    text-decoration: none;
+    color: aliceblue;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 2px solid aliceblue;
+  }
+}

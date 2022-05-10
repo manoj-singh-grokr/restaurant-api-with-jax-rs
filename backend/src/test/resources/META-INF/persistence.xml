@@ -3,14 +3,13 @@
   <persistence-unit name="reservation_pu" transaction-type="RESOURCE_LOCAL">
     <provider>org.hibernate.ejb.HibernatePersistence</provider>
     <class>com.datagrokr.restaurant_api.entity.Reservation</class>
-    <class>com.datagrokr.restaurant_api.NewEntity</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
-      <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/postgres"/>
-      <property name="javax.persistence.jdbc.user" value="postgres"/>
-      <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
-      <property name="javax.persistence.jdbc.password" value="temp123"/>
-      <!--      <property name="javax.persistence.schema-generation.database.action" value="create"/>-->
+      <property name="javax.persistence.jdbc.url" value="jdbc:h2:file:~/test2;DB_CLOSE_ON_EXIT=FALSE;AUTO_RECONNECT=TRUE"/>
+      <property name="javax.persistence.jdbc.user" value="admin"/>
+      <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
+      <property name="javax.persistence.jdbc.password" value="password"/>
+       <property name="javax.persistence.schema-generation.database.action" value="create"/> 
     </properties>
   </persistence-unit>
 </persistence>
