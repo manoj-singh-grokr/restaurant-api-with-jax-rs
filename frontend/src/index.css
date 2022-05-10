@@ -29,8 +29,10 @@ input {
 }
 
 .form {
-  text-align: center;
-  background-image: url("https://cdn.pixabay.com/photo/2016/11/21/16/02/outdoor-dining-1846137_960_720.jpg");
+  display: flex;
+  align-content: space-around;
+  flex-direction: column;
+  
 }
 
 .logo-link {
@@ -104,6 +106,10 @@ footer {
 
 .error{
   color: red;
+  text-align: center;
+}
+
+#noOfPeople{
   text-align: center;
 }
 

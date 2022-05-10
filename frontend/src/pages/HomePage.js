@@ -5,7 +5,7 @@ import FoodMenu from "../components/FoodMenu";
 import { Link } from "react-router-dom";
 import Footer from "../components/Footer";
 
-const ImageButton = styled(ButtonBase)(({ theme }) => ({
+const ImageButton = styled(ButtonBase)(() => ({
   height: 50,
   width: 150,
   fontSize: "1.5rem",

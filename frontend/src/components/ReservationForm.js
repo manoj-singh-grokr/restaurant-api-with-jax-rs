@@ -1,30 +1,46 @@
 import React, { useState } from "react";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import { styled } from "@mui/material";
 
-import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
-import Avatar from "@mui/material/Avatar";
+import PhoneIcon from "@mui/icons-material/Phone";
+import EmojiPeopleIcon from "@mui/icons-material/EmojiPeople";
+
+import {
+  FormControl,
+  InputAdornment,
+  MenuItem,
+} from "@mui/material";
+
+import * as Yup from "yup";
+
+import PersonIcon from "@mui/icons-material/Person";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
-import Paper from "@mui/material/Paper";
-import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid";
-import DinnerDiningIcon from "@mui/icons-material/DinnerDining";
-import Typography from "@mui/material/Typography";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { deepOrange } from "@mui/material/colors";
+
+const validationSchema = Yup.object({
+  username: Yup.string().required(),
+  mobileNo: Yup.string().required().length(10),
+  noOfPeople: Yup.number().required(),
+  timeOfReservation: Yup.date().required(),
+});
+
+const initialValues = {
+  username: "",
+  mobileNo: "",
+  noOfPeople: "",
+  timeOfReservation: "",
+};
+
+const Item = styled(Field)(() => ({
+  margin: "1rem 0",
+}));
 
 const ReservationForm = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const { username, mobileNo, noOfPeople, timeOfReservation } = e.target;
-    const values = {
-      username: username.value,
-      mobileNo: mobileNo.value,
-      noOfPeople: noOfPeople.value,
-      timeOfReservation: timeOfReservation.value,
-    };
+  const handleSubmit = async (values) => {
     try {
       const result = await axios({
         method: "POST",
@@ -46,90 +62,108 @@ const ReservationForm = () => {
   };
 
   return (
-    <Grid container component="main" sx={{ height: "100vh" }}>
-      <Grid
-        item
-        xs={false}
-        sm={4}
-        md={6}
-        sx={{
-          backgroundImage:
-            "url(https://cdn.pixabay.com/photo/2019/02/21/19/00/restaurant-4011989_960_720.jpg)",
-          backgroundRepeat: "no-repeat",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      />
-      <Grid item xs={12} sm={8} md={6} component={Paper} elevation={6} square>
-        <Box
-          sx={{
-            my: 8,
-            mx: 4,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
-          <Avatar sx={{ m: 1, bgcolor: deepOrange[500] }}>
-            <DinnerDiningIcon />
-          </Avatar>
-          <Typography component="h5" variant="h5">
-            Reserve a table
-          </Typography>
-          <Box
-            component="form"
-            noValidate
-            onSubmit={(e) => handleSubmit(e)}
-            sx={{ mt: 1 }}
+    <Formik
+      initialValues={initialValues}
+      validationSchema={validationSchema}
+      validateOnChange={false}
+      validateOnBlur={false}
+      onSubmit={(values, { setSubmitting }) => {
+        handleSubmit(values);
+        setSubmitting(false);
+      }}
+    >
+      {({ isSubmitting }) => (
+        <Form className="form">
+          <Item
+            as={TextField}
+            type="text"
+            name="username"
+            label="User Name"
+            variant="outlined"
+            size="small"
+            sx={{
+              label: { color: "#fff" },
+              width: 300,
+            }}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <PersonIcon />
+                </InputAdornment>
+              ),
+            }}
+          />
+          <ErrorMessage name="username" component="div" className="error" />
+          <Item
+            as={TextField}
+            type="text"
+            name="mobileNo"
+            label="Mobile No"
+            variant="outlined"
+            size="small"
+            sx={{ label: { color: "#fff" }, width: 300 }}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <PhoneIcon />
+                </InputAdornment>
+              ),
+            }}
+          />
+          <ErrorMessage name="mobileNo" component="div" className="error" />
+          <FormControl fullWidth>
+            <Item
+              as={TextField}
+              name="noOfPeople"
+              label="No of People"
+              variant="outlined"
+              select
+              size="small"
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <EmojiPeopleIcon />
+                  </InputAdornment>
+                ),
+              }}
+              sx={{ label: { color: "#fff" }, width: 300 }}
+            >
+              <MenuItem value={2}>2</MenuItem>
+              <MenuItem value={4}>4</MenuItem>
+            </Item>
+          </FormControl>
+          <ErrorMessage name="noOfPeople" component="div" className="error" />
+          <Item
+            as={TextField}
+            type="datetime-local"
+            name="timeOfReservation"
+            label="Time of Reservation"
+            variant="outlined"
+            size="small"
+            sx={{ label: { color: "#fff" }, width: 300 }}
+            InputLabelProps={{
+              shrink: true,
+            }}
+          />
+          <ErrorMessage
+            name="timeOfReservation"
+            component="div"
+            className="error"
+          />
+
+          {error && <p className="error">{error}</p>}
+          <Button
+            role="reserveButton"
+            type="submit"
+            disabled={isSubmitting}
+            variant="contained"
+            sx={{ marginTop: "1rem", marginBottom: "1rem" }}
           >
-            <FormControl>
-              <TextField
-                type="text"
-                label="username"
-                variant="standard"
-                name="username"
-                sx={{ margin: "5px 0" }}
-                required
-              />
-              <TextField
-                type="text"
-                label="Mobile No"
-                variant="standard"
-                name="mobileNo"
-                sx={{ margin: "5px 0" }}
-                required
-              />
-              <FormControl variant="standard">
-                <InputLabel id="noOfPeople">No Of People</InputLabel>
-                <Select
-                  labelId="noOfPeople"
-                  label="No of People"
-                  name="noOfPeople"
-                >
-                  <MenuItem value={2}>2</MenuItem>
-                  <MenuItem value={4}>4</MenuItem>
-                </Select>
-              </FormControl>
-              <TextField
-                type="datetime-local"
-                label="Time of Reservation"
-                variant="standard"
-                name="timeOfReservation"
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                sx={{ margin: "2rem 0" }}
-                required
-              />
-              {error && <p className="error">{error}</p>}
-              <Button type="submit" role="reserveButton">
-                Submit
-              </Button>
-            </FormControl>
-          </Box>
-        </Box>
-      </Grid>
-    </Grid>
+            Submit
+          </Button>
+        </Form>
+      )}
+    </Formik>
   );
 };
 

@@ -4,7 +4,6 @@ import ReservationsPage from "./pages/ReservationsPage";
 import ReservePage from "./pages/ReservePage";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import HomePage from "./pages/HomePage";
-import Footer from "./components/Footer";
 
 const darkTheme = createTheme({
   palette: {
@@ -22,7 +21,6 @@ function App() {
           <Route path="/reservations" element={<ReservationsPage />} />
           <Route path="/book" element={<ReservePage />} />
         </Routes>
-        {/* <Footer /> */}
       </BrowserRouter>
     </ThemeProvider>
   );
