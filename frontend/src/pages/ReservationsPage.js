@@ -7,6 +7,7 @@ import { Container } from "@mui/material";
 const ReservationsPage = () => {
   const [reservations, setReservations] = useState([]);
   const { state } = useLocation();
+  
   const userInfo = state ? state.userInfo : "";
   console.log(userInfo);
   useEffect(() => {

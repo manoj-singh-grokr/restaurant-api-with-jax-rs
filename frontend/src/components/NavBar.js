@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import { IconButton, Menu, MenuItem } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import CheckingForm from "./CheckingForm";
+import ReservationFormModal from "./ReservationFormModal";
 
 function ElevationScroll(props) {
   const { children } = props;
@@ -25,6 +26,10 @@ const NavBar = () => {
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
+
+  const [openReservationForm, setOpenReservationForm] = useState(false);
+  const handleOpenReservationForm = () => setOpenReservationForm(true);
+  const handleCloseReservationForm = () => setOpenReservationForm(false);
 
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -81,7 +86,12 @@ const NavBar = () => {
               >
                 <MenuItem onClick={handleCloseNavMenu}>
                   <Typography textAlign="center">
-                    <Link to="/book" className="side-link">
+                    <Link
+                      to="#"
+                      className="side-link"
+                      onClick={handleOpenReservationForm}
+                      data-testid="ham-book"
+                    >
                       Book
                     </Link>
                   </Typography>
@@ -91,6 +101,7 @@ const NavBar = () => {
                     to="#"
                     onClick={handleOpen}
                     className="side-link"
+                    data-testid="ham-reservation"
                   >
                     Reservations
                   </Link>
@@ -98,10 +109,20 @@ const NavBar = () => {
               </Menu>
             </Box>
             <Box sx={{ display: { xs: "none", md: "flex" } }}>
-              <Link to="/book" className="side-link">
+              <Link
+                to="#"
+                className="side-link"
+                onClick={handleOpenReservationForm}
+                data-testid="desk-book"
+              >
                 Book
               </Link>
-              <Link to="#" className="side-link" onClick={handleOpen}>
+              <Link
+                to="#"
+                className="side-link"
+                onClick={handleOpen}
+                data-testid="desk-reservation"
+              >
                 Reservations
               </Link>
             </Box>
@@ -109,6 +130,10 @@ const NavBar = () => {
         </AppBar>
       </ElevationScroll>
       <CheckingForm open={open} handleClose={handleClose} />
+      <ReservationFormModal
+        open={openReservationForm}
+        handleClose={handleCloseReservationForm}
+      />
     </Box>
   );
 };

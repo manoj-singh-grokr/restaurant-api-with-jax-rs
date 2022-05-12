@@ -15,8 +15,7 @@ const ReservationTable = ({ rows, setReservations }) => {
     )
       .toISOString()
       .substring(0, 19);
-      
-    console.log(isoDateTime);
+
     const result = await axios({
       url: "/restaurant_api/api/reservations/update/" + values.id,
       method: "put",
@@ -28,9 +27,13 @@ const ReservationTable = ({ rows, setReservations }) => {
         "Content-Type": "application/json",
       },
     });
-    setUpdateStatus(true);
+    if (result.status === 200) {
+      setUpdateStatus(1);
+    } else {
+      setUpdateStatus(2);
+    }
     setTimeout(() => {
-      setUpdateStatus(false);
+      setUpdateStatus("");
     }, 2000);
   };
 
@@ -105,6 +108,11 @@ const ReservationTable = ({ rows, setReservations }) => {
   return (
     <div style={{ height: 400, width: "100%" }}>
       <DataGrid
+        initialState={{
+          sorting: {
+            sortModel: [{ field: "timeOfReservation", sort: "desc" }],
+          },
+        }}
         autoHeight={true}
         rows={rows}
         columns={columns}
@@ -115,8 +123,14 @@ const ReservationTable = ({ rows, setReservations }) => {
         disableSelectionOnClick
       />
       {updateStatus && (
-        <p style={{ color: "green", textAlign: "center", marginTop: "1rem" }}>
-          Updated Successfully
+        <p
+          style={{
+            color: updateStatus === 1 ? "green" : "red",
+            textAlign: "center",
+            marginTop: "1rem",
+          }}
+        >
+          {updateStatus === 1 ? "Successfully updated!" : "Failed updating!"}
         </p>
       )}
     </div>

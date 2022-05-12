@@ -10,7 +10,12 @@ import {
   FormControl,
   Modal,
   TextField,
+  styled,
 } from "@mui/material";
+
+const BlurryModal = styled(Modal)((props) => ({
+  backdropFilter: props.open ? "blur(5px)" : "none",
+}));
 
 const style = {
   position: "absolute",
@@ -19,9 +24,7 @@ const style = {
   transform: "translate(-50%, -50%)",
   width: 400,
   bgcolor: "background.paper",
-  border: "2px solid #000",
-  borderRadius: "5px",
-  boxShadow: 24,
+  borderRadius: "1rem",
   p: 4,
 };
 
@@ -38,7 +41,7 @@ const CheckingForm = ({ open, handleClose }) => {
     navigate("/reservations", { state: { userInfo: data } });
   };
   return (
-    <Modal
+    <BlurryModal
       keepMounted
       open={open}
       onClose={handleClose}
@@ -46,7 +49,7 @@ const CheckingForm = ({ open, handleClose }) => {
       aria-describedby="gets-user-details"
     >
       <Container sx={style}>
-        <h1 className="heading">Check your reservations</h1>
+        <h2 className="heading">Check your reservations</h2>
         <Box
           component="form"
           noValidate
@@ -87,7 +90,7 @@ const CheckingForm = ({ open, handleClose }) => {
           </p>
         </Box>
       </Container>
-    </Modal>
+    </BlurryModal>
   );
 };
 

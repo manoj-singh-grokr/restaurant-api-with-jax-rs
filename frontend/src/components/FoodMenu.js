@@ -6,6 +6,7 @@ const Item = styled(Paper)(({ theme }) => ({
   height: 500,
   backgroundRepeat: "no-repeat",
   backgroundSize: "cover",
+  backgroundPosition: "center",
   padding: theme.spacing(1),
   textAlign: "center",
   textTransform: "uppercase",
@@ -79,5 +80,5 @@ const FoodMenu = () => {
   );
 };
 
-export {menu};
+export { menu };
 export default FoodMenu;
