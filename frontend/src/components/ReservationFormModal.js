@@ -38,9 +38,9 @@ const style = {
 };
 
 const validationSchema = Yup.object({
-  username: Yup.string().required("username is required!"),
+  username: Yup.string().required("Username is required!"),
   mobileNo: Yup.string().required("Mobile No. is necessary!").length(10),
-  noOfPeople: Yup.number().required("Tell us how many people!"),
+  noOfPeople: Yup.number().required("No. of people is required!"),
   timeOfReservation: Yup.date().required("Time of reservation is required!"),
 });
 

@@ -31,5 +31,4 @@ test("Show reservation table", () => {
   rows.forEach((item) => {
     expect(screen.getByText(item.id)).toBeInTheDocument();
   });
-  screen.debug(undefined, 300000);
 });

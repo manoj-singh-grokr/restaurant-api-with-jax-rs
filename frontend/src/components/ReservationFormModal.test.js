@@ -15,6 +15,13 @@ const formFields = [
   /Time of Reservation/i,
 ];
 
+const errors = [
+  "Username is required!",
+  "Mobile No. is necessary!",
+  "No. of people is required!",
+  "Time of reservation is required!",
+];
+
 describe("Reservation", () => {
   const username = "Test2";
   const mobileNo = "1234567890";
@@ -34,6 +41,19 @@ describe("Reservation", () => {
     );
     expect(screen.getByRole("reserveButton")).toBeInTheDocument();
   });
+
+  test("form errors are displayed", async () => {
+    renderWithRouter(
+      <ReservationFormModal open={true} handleClose={jest.fn} />
+    );
+    await act(async () => {
+      fireEvent.click(screen.getByRole("reserveButton"));
+    });
+    errors.forEach((error) => {
+      expect(screen.getByText(error)).toBeInTheDocument();
+    });
+  });
+
   describe("reservation function", () => {
     describe("with success", () => {
       const data = { status: 200 };
@@ -49,7 +69,7 @@ describe("Reservation", () => {
     });
 
     /*TODO */
-    
+
     // describe("with failure", () => {
     //   it("should return error", async () => {
     //     const errorMessage = "Booking is allowed only for the current day!";

@@ -59,7 +59,7 @@ const CheckingForm = ({ open, handleClose }) => {
           <FormControl>
             <TextField
               type="text"
-              label="username"
+              label="Username"
               variant="outlined"
               name="username"
               sx={{ margin: "5px 0" }}

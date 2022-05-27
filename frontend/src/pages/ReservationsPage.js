@@ -7,14 +7,13 @@ import { Container } from "@mui/material";
 const ReservationsPage = () => {
   const [reservations, setReservations] = useState([]);
   const { state } = useLocation();
-  
+
   const userInfo = state ? state.userInfo : "";
-  console.log(userInfo);
+
   useEffect(() => {
     const getReservations = async (userInfo) => {
       const result = await axios.get("/restaurant_api/api/reservations");
       const data = await result.data;
-      console.log(data);
       let userReservations = data.filter(
         (item) => item.username === userInfo.username
       );
@@ -33,9 +32,7 @@ const ReservationsPage = () => {
     if (userInfo) {
       getReservations(userInfo);
     }
-
-    console.log("I was called");
-  }, [userInfo]);
+  }, []);
 
   return (
     <Container maxWidth="md">
