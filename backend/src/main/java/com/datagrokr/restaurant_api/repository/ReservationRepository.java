@@ -28,6 +28,13 @@ public class ReservationRepository {
         return reservation;
     }
     
+    public void deleteAllReservations(){
+        entityManager.getTransaction().begin();
+        Query q = entityManager.createQuery("DELETE FROM Reservation");
+        q.executeUpdate();
+        entityManager.getTransaction().commit();
+    }
+    
     public List<Reservation> findAll(){
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<Reservation> cq = cb.createQuery(Reservation.class);

@@ -10,6 +10,7 @@ import org.glassfish.jersey.server.ResourceConfig;
 import org.junit.Test;
 import org.glassfish.jersey.test.JerseyTest;
 import static org.junit.Assert.*;
+import org.junit.jupiter.api.AfterEach;
 
 /**
  *
@@ -17,13 +18,19 @@ import static org.junit.Assert.*;
  */
 public class MyResourceTest extends JerseyTest {
     
-    private BookingService service = new BookingService();
+    private final BookingService service;
     public MyResourceTest() {
+        service = new BookingService();
     }
     
     @Override
     protected Application configure() {
         return new ResourceConfig(MyResource.class);
+    }
+    
+    @AfterEach
+    public void tearDown(){
+        service.deleteAllReservations();
     }
     
     /**
@@ -43,7 +50,7 @@ public class MyResourceTest extends JerseyTest {
      */
     @Test
     public void testGetReservation() {
-        Reservation reservation = new Reservation("man", "1234567890", 2, LocalDateTime.now().plusHours(1));
+        Reservation reservation = new Reservation("man", "1234567890", 2, LocalDateTime.now().plusMinutes(1));
         service.addReservation(reservation);
         Response output = target("/reservations/"+reservation.getId()).request(MediaType.APPLICATION_JSON_TYPE).get();
         assertEquals("Should return status 200", 200, output.getStatus());
@@ -59,7 +66,7 @@ public class MyResourceTest extends JerseyTest {
         Response output = target("/reservations/add").request().post(Entity.entity(reservation, MediaType.APPLICATION_JSON));
         System.out.println(output.getStatus());
         assertEquals("Should return status 500", 500, output.getStatus());
-        reservation = new Reservation("man", "1234567890", 2, LocalDateTime.now().plusHours(1));
+        reservation = new Reservation("man", "1234567890", 2, LocalDateTime.now().plusMinutes(1));
         output = target("/reservations/add").request().post(Entity.entity(reservation, MediaType.APPLICATION_JSON));
         System.out.println(output);
         System.out.println();
@@ -78,7 +85,6 @@ public class MyResourceTest extends JerseyTest {
         updatedReservation.setNoOfPeople(4);
         Response output = target("/reservations/update/"+reservation.getId()).request().put(Entity.entity(updatedReservation, MediaType.APPLICATION_JSON));
         System.out.println(output);
-        System.out.println();
         assertEquals("Should return status 200", 200, output.getStatus());
     }
 

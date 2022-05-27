@@ -17,6 +17,10 @@ public class BookingService {
         this.reservationRepo = new ReservationRepository();
     }
     
+    public void deleteAllReservations(){
+        reservationRepo.deleteAllReservations();
+    }
+    
     public List<Reservation> getAllReservations(){
         return reservationRepo.findAll();
     }

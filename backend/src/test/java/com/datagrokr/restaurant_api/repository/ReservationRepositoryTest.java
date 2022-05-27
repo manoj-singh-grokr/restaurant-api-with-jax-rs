@@ -10,6 +10,7 @@ import org.junit.After;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.Before;
+import org.junit.jupiter.api.AfterEach;
 
 /**
  *
@@ -30,6 +31,11 @@ public class ReservationRepositoryTest {
     @After
     public void tearDown(){
         instance.close();
+    }
+    
+    @AfterEach
+    public void deleteAll(){
+        instance.deleteAllReservations();
     }
 
     /**

@@ -26,11 +26,11 @@ public class MyResource {
         return bookingService.getAllReservations();
     }
     
-    @Path("/{id}")
-    @GET
-    public Reservation getReservation(@PathParam("id") Long id){
-        return bookingService.getReservation(id);
-    }
+//    @Path("/{id}")
+//    @GET
+//    public Reservation getReservation(@PathParam("id") Long id){
+//        return bookingService.getReservation(id);
+//    }
     
     @Path("/add")
     @POST

@@ -3,9 +3,9 @@ package com.datagrokr.restaurant_api.service;
 import com.datagrokr.restaurant_api.entity.Reservation;
 import jakarta.ws.rs.core.Response;
 import java.time.LocalDateTime;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -17,15 +17,48 @@ public class BookingServiceTest {
     private BookingService instance;
 
     public BookingServiceTest() {
+        instance = new BookingService();
     }
     
     @Before
     public void setUp() {
-        instance = new BookingService();
     }
     
-    @After
-    public void tearDown() {
+    @AfterEach
+    public void tearDown(){
+        instance.deleteAllReservations();
+    }
+    
+    @Test
+    public void testGetNoOfReservations(){
+        Reservation reservation = new Reservation("man", "1234567890", 2, LocalDateTime.now().plusDays(1));
+        instance.addReservation(reservation);        
+        reservation = new Reservation("man", "1234567890", 2, LocalDateTime.now().plusMinutes(4));
+        instance.addReservation(reservation);
+        String result = instance.getNoOfReservations();
+        assertEquals("2", result);
+    }
+    
+    @Test
+    public void testGetNoOfTwoPeopleReservations(){
+        Reservation reservation = new Reservation("man", "1234567890", 4, LocalDateTime.now().plusDays(1));
+        instance.addReservation(reservation);        
+        reservation = new Reservation("man", "1234567890", 2, LocalDateTime.now().plusMinutes(4));
+        instance.addReservation(reservation);
+        String result = instance.getNoOfTwoPeopleReservations();
+        assertEquals("1", result);
+    }
+    
+     @Test
+    public void testGetNoOfFourPeopleReservations(){
+        Reservation reservation = new Reservation("man", "1234567890", 4, LocalDateTime.now().plusDays(1));
+        instance.addReservation(reservation);        
+        reservation = new Reservation("man", "1234567890", 2, LocalDateTime.now().plusMinutes(4));
+        instance.addReservation(reservation);
+        reservation = new Reservation("another", "1234567891", 4, LocalDateTime.now().plusMinutes(6));
+        instance.addReservation(reservation);
+        String result = instance.getNoOfFourPeopleReservations();
+        assertEquals("2", result);
     }
 
     /**
@@ -38,7 +71,7 @@ public class BookingServiceTest {
         Response result = instance.addReservation(reservation);
         assertEquals(500, result.getStatus());
         
-        reservation = new Reservation("man", "1234567890", 2, LocalDateTime.now().plusHours(4));
+        reservation = new Reservation("man", "1234567890", 2, LocalDateTime.now().plusMinutes(4));
         result = instance.addReservation(reservation);
         assertEquals(200, result.getStatus());
     }
