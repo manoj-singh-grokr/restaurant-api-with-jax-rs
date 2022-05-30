@@ -95,10 +95,10 @@ const ReservationTable = ({ rows, setReservations }) => {
           }}
         >
           <IconButton onClick={() => handleUpdate(params.row)}>
-            <EditIcon />
+            <EditIcon data-testid={`update${params.row.id}`} />
           </IconButton>
           <IconButton onClick={() => handleDelete(params.row.mobileNo)}>
-            <DeleteIcon />
+            <DeleteIcon data-testid={`delete${params.row.id}`} />
           </IconButton>
         </Box>
       ),
@@ -118,6 +118,7 @@ const ReservationTable = ({ rows, setReservations }) => {
         columns={columns}
         editMode="row"
         pageSize={5}
+        columnBuffer={6}
         rowsPerPageOptions={[5]}
         checkboxSelection
         disableSelectionOnClick

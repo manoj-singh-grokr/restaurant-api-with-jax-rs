@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import PersonIcon from "@mui/icons-material/Person";
 
@@ -30,13 +30,13 @@ const style = {
 
 const CheckingForm = ({ open, handleClose }) => {
   const navigate = useNavigate();
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const [username, setUsername] = useState("");
+  const [timeOfReservation, setTimeOfReservation] = useState();
+  const handleSubmit = () => {
     const data = {
-      username: e.target.username.value,
-      timeOfReservation: e.target.timeOfReservation.value,
+      username,
+      timeOfReservation,
     };
-    console.log(data);
     handleClose();
     navigate("/reservations", { state: { userInfo: data } });
   };
@@ -50,12 +50,7 @@ const CheckingForm = ({ open, handleClose }) => {
     >
       <Container sx={style}>
         <h2 className="heading">Check your reservations</h2>
-        <Box
-          component="form"
-          noValidate
-          onSubmit={handleSubmit}
-          sx={{ mt: 1, textAlign: "center" }}
-        >
+        <Box component="form" noValidate sx={{ mt: 1, textAlign: "center" }}>
           <FormControl>
             <TextField
               type="text"
@@ -63,6 +58,7 @@ const CheckingForm = ({ open, handleClose }) => {
               variant="outlined"
               name="username"
               sx={{ margin: "5px 0" }}
+              onChange={(e) => setUsername(e.target.value)}
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
@@ -76,12 +72,17 @@ const CheckingForm = ({ open, handleClose }) => {
               label="Time of Reservation"
               variant="outlined"
               name="timeOfReservation"
+              onChange={(e) => setTimeOfReservation(e.target.value)}
               InputLabelProps={{
                 shrink: true,
               }}
               sx={{ margin: "2rem 0" }}
             />
-            <Button variant="contained" type="submit" role="find_button">
+            <Button
+              variant="contained"
+              role="find_button"
+              onClick={handleSubmit}
+            >
               Find
             </Button>
           </FormControl>

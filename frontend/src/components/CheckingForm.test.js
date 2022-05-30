@@ -18,13 +18,12 @@ test("Checking Reservations Form should be displayed", () => {
 });
 
 test("redirected to /reservations when clicking find button", async () => {
-  renderWithRouter(<CheckingForm open={true} handleClose={jest.fn()} />);
+  renderWithRouter(<CheckingForm open={true} handleClose={jest.fn} />);
   await act(async () => {
     fireEvent.change(screen.getByLabelText(/username/i), {
       target: { value: "testuser" },
     });
+    fireEvent.click(screen.getByRole("find_button"));
   });
-  fireEvent.click(screen.getByRole("find_button"));
-  screen.debug();
-  // expect(screen.getByText("Res Page")).toBeInTheDocument();
+  expect(screen.getByText("Res Page")).toBeInTheDocument();
 });
